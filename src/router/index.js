@@ -8,39 +8,40 @@ const routes = [
     path: '/login',
     name: 'login',
     // 路由懒加载
-    component: () => import('@/views/login/')
+    component: () => import('@/views/toutiao-login')
   },
 
   {
-    // 父组件
-    path: '/',
-    // 父组件一般没必要 设置 name
-    component: () => import('@/views/layout/'),
+    // 父路由
+    path: '/', // 默认路由
+    component: () => import('@/views/father'),
+    // 要想让父路由激活的同时 第一个子路由也激活 需要设置一个重定向 路径指向第一个子路由
+    redirect: '/home',
 
-    // 子组件
+    // 子路由
     children: [
       {
-        path: '/home',
+        path: '/home', // 默认子路由
         name: 'home', // 子组件一般会设置 name
-        component: () => import('@/views/home/')
+        component: () => import('@/views/toutiao-home')
       },
 
       {
-        path: '/qa',
-        name: 'qa',
-        component: () => import('@/views/qa/')
+        path: '/search',
+        name: 'search',
+        component: () => import('@/views/toutiao-search')
       },
 
       {
         path: '/video',
         name: 'video',
-        component: () => import('@/views/video/')
+        component: () => import('@/views/toutiao-video')
       },
 
       {
         path: '/my',
         name: 'my',
-        component: () => import('@/views/my/')
+        component: () => import('@/views/toutiao-my')
       }
     ]
   }
