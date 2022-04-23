@@ -45,3 +45,14 @@ export const getCurrentUser = () => {
     // }
   })
 }
+
+/**
+ * 发送短信验证码
+ */
+
+export const getUserChannels = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/channels'
+  })
+}

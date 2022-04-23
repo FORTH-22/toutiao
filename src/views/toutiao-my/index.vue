@@ -120,7 +120,7 @@ export default {
     async loadCurrentUser() {
       // 结构赋值 直接把axios 请求获取结果中的 data对象 解构出来了
       const { data } = await getCurrentUser()
-      console.log(data)
+      // console.log(data)
       // 因为在当前组件 需要用到用户数据 所以在 data() 中存 currentUser的数据 方便 html 中使用
       this.currentUser = data.data
     }

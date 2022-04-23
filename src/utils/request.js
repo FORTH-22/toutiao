@@ -21,7 +21,7 @@ request.interceptors.request.use(
       config.headers.Authorization = `Bearer ${user.token}`
     }
 
-    console.log(config)
+    // console.log(config)
     // 设置完成后 一定要返回 config 不然网络请求 就会停在这里
     return config
   },
