@@ -11,6 +11,7 @@ const routes = [
     component: () => import('@/views/toutiao-login')
   },
 
+  // 首页下面的 四个导航栏
   {
     // 父路由
     path: '/', // 默认路由
@@ -27,9 +28,9 @@ const routes = [
       },
 
       {
-        path: '/search',
-        name: 'search',
-        component: () => import('@/views/toutiao-search')
+        path: '/question',
+        name: 'question',
+        component: () => import('@/views/toutiao-questions')
       },
 
       {
@@ -44,6 +45,12 @@ const routes = [
         component: () => import('@/views/toutiao-my')
       }
     ]
+  },
+
+  // 搜索页面
+  {
+    path: '/search',
+    component: () => import('@/views/toutiao-search')
   }
 ]
 
