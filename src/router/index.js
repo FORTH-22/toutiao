@@ -51,6 +51,13 @@ const routes = [
   {
     path: '/search',
     component: () => import('@/views/toutiao-search')
+  },
+
+  // 文章详情页面
+  {
+    path: '/article/:articleId', // 动态路由
+    name: 'article',
+    component: () => import('@/views/toutiao-article')
   }
 ]
 

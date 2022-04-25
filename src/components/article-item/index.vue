@@ -1,6 +1,14 @@
 <template>
   <!-- <div class="article-item">文章列表项</div> -->
-  <van-cell class="article-item">
+  <van-cell
+    class="article-item"
+    :to="{
+      name: 'article',
+      params: {
+        articleId: article.art_id
+      }
+    }"
+  >
     <!-- 自定义插槽 -->
     <!-- 标题 -->
     <!-- 当文章标题的字太多时候 需要省略 所以 使用vant内置样式 让它最多显示两行 -->
