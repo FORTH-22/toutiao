@@ -219,6 +219,9 @@ export default {
       display: flex;
       justify-content: space-around;
       align-items: center;
+      .van-icon {
+        font-size: 18px;
+      }
     }
   }
 }
