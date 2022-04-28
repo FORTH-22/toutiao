@@ -58,6 +58,13 @@ const routes = [
     path: '/article/:articleId', // 动态路由
     name: 'article',
     component: () => import('@/views/toutiao-article')
+  },
+
+  // 编辑资料
+  {
+    path: '/user/profile',
+    name: 'user-profile',
+    component: () => import('@/views/user-profile')
   }
 ]
 

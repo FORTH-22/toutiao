@@ -19,3 +19,8 @@ dayjs.extend(relativeTime)
 Vue.filter('relativeTime', (currentTime) => {
   return dayjs(currentTime).from(dayjs())
 })
+
+// 创建 年月日 时分 过滤器
+Vue.filter('dateTime', (currentTime, format = 'YYYY-MM-DD HH : mm') => {
+  return dayjs(currentTime).format(format)
+})

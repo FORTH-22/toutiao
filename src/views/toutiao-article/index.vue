@@ -43,15 +43,27 @@
 
       <!-- 文章内容 -->
       <p class="markdown-body" v-html="articleInfo.content"></p>
+
+      <!-- 文章评论 -->
+      <p class="all-comments">全部评论</p>
+      <CommentList
+        :list="commentList"
+        :source="this.$route.params.articleId"
+        @pushCommentList="pushCommentList"
+        @updateTotalComments="totalComments = $event"
+        @replyComment="replyComment"
+      />
     </div>
 
     <!-- 底部区域 -->
     <div class="articleInfo-bottom-container">
-      <van-button type="default" round>写评论</van-button>
+      <van-button type="default" round @click="isPublishCommentShow = true"
+        >写评论</van-button
+      >
 
-      <!-- 图标 收藏 点赞 分享 -->
+      <!-- 图标 评论 收藏 点赞 分享 -->
       <div class="stat-good-share">
-        <van-icon name="comment-o" color="#dddd" />
+        <van-icon name="comment-o" color="#dddd" :badge="totalComments" />
         <van-icon
           :name="articleInfo.attitude === 1 ? 'good-job' : 'good-job-o'"
           :color="articleInfo.attitude === 1 ? 'hotpink' : '#dddd'"
@@ -65,6 +77,39 @@
         <van-icon name="share-o" color="#dddd" />
       </div>
     </div>
+
+    <!-- 点击发布评论显示的 弹出层 -->
+    <van-popup
+      v-model="isPublishCommentShow"
+      position="bottom"
+      class="publish-comment-container"
+    >
+      <van-field
+        v-model="message"
+        autosize
+        type="textarea"
+        maxlength="50"
+        placeholder="写下你的想法吧"
+        show-word-limit
+      />
+
+      <van-button
+        type="info"
+        class="publish-btn"
+        round
+        @click="onPublish"
+        :disabled="!message.trim()"
+        >发布</van-button
+      >
+    </van-popup>
+
+    <!--回复评论 -->
+    <van-popup v-model="isReplyCommentShow" position="bottom">
+      <ReplyComment
+        @closeReplyComment="isReplyCommentShow = false"
+        :comment="commentReply"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -92,13 +137,31 @@ import {
   cancelUserLike
 } from '@/api/user'
 
+// 引入 文章评论组件
+import CommentList from './components/comment-list.vue'
+// 引入 发布评论的请求方法
+import { publishComment } from '@/api/comment'
+// 引入回复评论组件
+import ReplyComment from './components/comment-reply.vue'
+
 export default {
   name: 'ArticleIndex',
   data() {
     return {
       articleInfo: {},
-      isLoadingShow: false
+      isLoadingShow: false,
+      isPublishCommentShow: false, // 控制发布评论的弹出层的显示状态
+      message: '', // 发布评论输入框内容
+      commentList: [], // 评论列表 子组件传过来的
+      totalComments: 0, // 文章评论数
+      isReplyCommentShow: false, // 是否展示 回复评论
+      commentReply: {} // 点击回复 对应的那个对象
     }
+  },
+
+  components: {
+    CommentList,
+    ReplyComment
   },
 
   created() {
@@ -180,6 +243,55 @@ export default {
 
       // 可以在这里统一更新
       this.articleInfo.attitude = this.articleInfo.attitude === -1 ? 1 : -1
+    },
+
+    // 发布评论
+    async onPublish() {
+      // 提示
+      this.$toast.loading({
+        message: '操作中...',
+        forbidClick: true
+      })
+
+      // 发送请求
+      const { data } = await publishComment({
+        target: this.articleInfo.art_id,
+        content: this.message
+      })
+
+      // 处理响应结果
+      // 弹出层关闭
+      this.isPublishCommentShow = false
+
+      // 输入框文字清空
+      this.message = ''
+
+      // 将最新评论添加到 评论列表中
+      const comment = data.data.new_obj
+      this.commentList.unshift(comment)
+      // 同时 评论数也要 ++
+      this.totalComments++
+
+      // 提示
+      this.$toast.success({
+        message: '发布成功',
+        forbidClick: true
+      })
+    },
+
+    // 更新评论列表
+    pushCommentList(results) {
+      this.commentList.push(...results)
+    },
+
+    // 回复评论
+    replyComment(comment) {
+      // console.log(comment)
+      // 将 传过来的 commnet 赋值给 commentReply
+      this.commentReply = comment
+
+      // 让回复评论的 弹出层显示
+      this.isReplyCommentShow = true
     }
   }
 }
@@ -200,6 +312,14 @@ export default {
       background-color: #fff;
       margin: 0;
       padding: 10px;
+    }
+
+    .all-comments {
+      padding: 10px;
+      margin: 0;
+      background: #fff;
+      font-size: 16px;
+      color: hotpink;
     }
   }
 
@@ -222,6 +342,15 @@ export default {
       .van-icon {
         font-size: 18px;
       }
+    }
+  }
+
+  // 发布评论 样式
+  .publish-comment-container {
+    display: flex;
+    align-items: center;
+    .publish-btn {
+      width: 20%;
     }
   }
 }

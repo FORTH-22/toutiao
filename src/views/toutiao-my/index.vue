@@ -3,11 +3,7 @@
     <!-- 用户信息 -->
     <van-cell-group v-if="user" class="my-info">
       <!-- 用户基本信息 -->
-      <van-cell
-        class="base-info"
-        :border="false"
-        center
-      >
+      <van-cell class="base-info" :border="false" center>
         <van-image
           slot="icon"
           fit="cover"
@@ -15,27 +11,29 @@
           round
           :src="currentUser.photo"
         />
-        <div slot="title" class="user-name">{{currentUser.name}}</div>
-        <van-button size="small" class="update-info" round>
+        <div slot="title" class="user-name">{{ currentUser.name }}</div>
+
+        <!-- 用户编辑资料 -->
+        <van-button size="small" class="update-info" to="/user/profile" round>
           编辑资料
         </van-button>
       </van-cell>
       <!-- 用户平台相关数据 -->
       <van-grid :border="false">
         <van-grid-item class="data-info-item">
-          <div slot="text">{{currentUser.art_count}}</div>
+          <div slot="text">{{ currentUser.art_count }}</div>
           <div slot="text">头条</div>
         </van-grid-item>
         <van-grid-item class="data-info-item">
-          <div slot="text">{{currentUser.follow_count}}</div>
+          <div slot="text">{{ currentUser.follow_count }}</div>
           <div slot="text">关注</div>
         </van-grid-item>
         <van-grid-item class="data-info-item">
-          <div slot="text">{{currentUser.fans_count}}</div>
+          <div slot="text">{{ currentUser.fans_count }}</div>
           <div slot="text">粉丝</div>
         </van-grid-item>
         <van-grid-item class="data-info-item">
-          <div slot="text">{{currentUser.like_count}}</div>
+          <div slot="text">{{ currentUser.like_count }}</div>
           <div slot="text">获赞</div>
         </van-grid-item>
       </van-grid>

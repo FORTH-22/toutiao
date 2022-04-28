@@ -131,3 +131,26 @@ export const cancelUserLike = (articleId) => {
     url: `/v1_0/article/likings/${articleId}`
   })
 }
+
+/**
+ * 获取用户数据 用来编辑资料
+ */
+
+export const getUserProfile = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/profile'
+  })
+}
+
+/**
+ * 请求后端更新用户资料
+ */
+
+export const updateUserProfile = (data) => {
+  return request({
+    method: 'PATCH',
+    url: '/v1_0/user/profile',
+    data
+  })
+}
