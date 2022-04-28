@@ -60,7 +60,7 @@
     </van-grid>
 
     <!-- 小智同学 和 消息通知 单元格 具有导航功能 不过 跳转页面目前 还没写出来 所以暂时先写成首页 -->
-    <van-cell title="小智同学" is-link to="/" />
+    <van-cell title="小智同学" is-link to="/user/chat" />
     <van-cell title="消息通知" is-link to="/" :border="false" class="mb-8" />
 
     <!-- 退出登陆按钮 -->
