@@ -1,7 +1,10 @@
 <template>
   <div class="father-container">
     <!-- 子路由出口 -->
-    <router-view />
+    <!-- 组件缓存  我希望 主页和 问答那四个导航栏 切换也有缓存 -->
+    <keep-alive>
+      <router-view />
+    </keep-alive>
     <!-- /子路由出口 -->
 
     <!-- 底部导航栏  相当于是 router-link -->
@@ -30,6 +33,11 @@ export default {
 
   computed: {
     ...mapState(['user'])
+  },
+
+  // 渲染完毕后 再把缓存加上来
+  mounted() {
+    this.$store.commit('addCachePages', 'FatherIndex')
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" ref="home-container">
     <!-- 顶部搜索框 -->
     <van-nav-bar class="app-nav-bar">
       <van-button
@@ -26,7 +26,7 @@
         :key="channel.id"
       >
         <!-- 文章列表 -->
-        <article-list :channel="channel" />
+        <article-list :channel="channel" ref="article-list" />
       </van-tab>
     </van-tabs>
 
@@ -182,7 +182,7 @@ export default {
     right: 0;
     bottom: 50px;
     top: 90px;
-    overflow: auto;
+    overflow: scroll;
   }
 
   // 频道 van-tabs的调整

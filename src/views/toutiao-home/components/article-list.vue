@@ -44,10 +44,6 @@ export default {
     }
   },
 
-  components: {
-    ArticleItem
-  },
-
   data() {
     return {
       articles: [],
@@ -57,6 +53,10 @@ export default {
       isPullDownLoading: false, // 下拉刷新的状态
       pullDownSuccessText: '' // 刷新成功后的提示 可以直接写 也可以自定义
     }
+  },
+
+  components: {
+    ArticleItem
   },
 
   methods: {

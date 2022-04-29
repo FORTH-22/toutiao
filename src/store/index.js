@@ -15,7 +15,10 @@ export default new Vuex.Store({
   state: {
     // 如果用 本地存储 这里也就不用再写死了  而是读出来
     // user: JSON.parse(localStorage.getItem('user'))
-    user: getItem(USER_KEY)
+    user: getItem(USER_KEY),
+
+    // 要缓存的页面
+    cachePages: ['FatherIndex']
   },
   getters: {},
   mutations: {
@@ -24,6 +27,22 @@ export default new Vuex.Store({
       // 为了防止页面刷新后 store容器中 user的token 数据消失  这里用 本地存储 仅仅是为了 保存数据  不让数据因为刷新页面 而丢失
       // localStorage.setItem('user', JSON.stringify(data))
       setItem(USER_KEY, data)
+    },
+
+    // 添加缓存页面
+    addCachePages(state, cachePage) {
+      if (!state.cachePages.includes(cachePage)) {
+        state.cachePages.push(cachePage)
+      }
+    },
+
+    // 清除缓存页面
+    removeCachePages(state, cachePage) {
+      const index = state.cachePages.indexOf(cachePage)
+
+      if (index !== -1) {
+        state.cachePages.splice(index, 1)
+      }
     }
   },
   actions: {},

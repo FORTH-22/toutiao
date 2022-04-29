@@ -9,7 +9,7 @@ import request from '@/utils/request'
 
 export const getSearchSuggestions = (str) => {
   return request({
-    methods: 'GET',
+    method: 'GET',
     url: '/v1_0/suggestion',
     params: {
       q: str
@@ -23,7 +23,7 @@ export const getSearchSuggestions = (str) => {
 
 export const getSearchResults = (params) => {
   return request({
-    methods: 'GET',
+    method: 'GET',
     url: '/v1_0/search',
     params
   })

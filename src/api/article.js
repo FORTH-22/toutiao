@@ -9,7 +9,7 @@ import request from '@/utils/request'
 
 export const getArticles = (params) => {
   return request({
-    methods: 'GET',
+    method: 'GET',
     url: '/v1_0/articles',
     params
   })
@@ -21,7 +21,7 @@ export const getArticles = (params) => {
 
 export const getArticlesContents = (articleId) => {
   return request({
-    methods: 'GET',
+    method: 'GET',
     url: `/v1_0/articles/${articleId}`
   })
 }

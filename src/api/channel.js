@@ -9,7 +9,7 @@ import request from '@/utils/request'
 
 export const getAllChannels = () => {
   return request({
-    methods: 'GET',
+    method: 'GET',
     url: '/v1_0/channels'
   })
 }

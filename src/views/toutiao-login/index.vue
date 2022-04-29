@@ -131,7 +131,9 @@ export default {
 
         // 登陆成功后 就把用户状态 改成 后端接口 返回的用户 token
         this.$store.commit('setUser', res.data.data)
-        console.log(res)
+
+        // 登陆成功后 把对于 fatherIndex 的缓存清掉 为了处理 缓存页面带来的影响
+        this.$store.commit('removeCachePages', 'FatherIndex')
 
         // 登陆成功后 就把页面 跳转到 我的页面
         // 鹏周说这样不好 但会有更高的解决方法 之后会讲
